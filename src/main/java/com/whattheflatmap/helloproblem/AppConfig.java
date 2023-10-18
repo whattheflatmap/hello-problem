@@ -38,7 +38,7 @@ public class AppConfig {
 //        return new ConstraintViolationProblemModule();
 //    }
 
-    // 2. Define Objectmapper beans
+    // 2. Define Objectmapper bean
 //    @Bean
 //    public ObjectMapper objectMapper() {
 //        return new ObjectMapper().registerModules(
@@ -60,7 +60,7 @@ public class AppConfig {
 //                .findModulesViaServiceLoader(true);
 //    }
 
-    // 4. Define Jackson2ObjectMapperBuilder bean
+    // 4. Define Jackson2ObjectMapperBuilderCustomizer bean
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
         return builder -> builder.findModulesViaServiceLoader(true);

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import java.nio.file.AccessDeniedException;
+
 @SpringBootApplication
 @RestController
 @RequestMapping("/api/v1/")
@@ -18,8 +20,28 @@ public class HelloProblemApplication {
         SpringApplication.run(HelloProblemApplication.class, args);
     }
 
-    @GetMapping("/hello")
-    public Mono<String> hello() {
+    @GetMapping("/bad-request")
+    public Mono<String> badRequest() {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/unsupported")
+    public Mono<String> unsupported() {
+        throw new UnsupportedOperationException("Unsupported operation");
+    }
+
+    @GetMapping("/access-denied")
+    public Mono<String> accessDenied() throws AccessDeniedException {
+        throw new AccessDeniedException("No access");
+    }
+
+    @GetMapping("/item-not-found")
+    public Mono<String> itemNotFound() {
+        throw new CustomProblem(1L);
+    }
+
+    @GetMapping("/custom")
+    public Mono<String> custom() {
+        throw new CustomException();
     }
 }
