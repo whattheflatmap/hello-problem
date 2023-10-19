@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
 import java.nio.file.AccessDeniedException;
 
 @SpringBootApplication
@@ -43,5 +45,10 @@ public class HelloProblemApplication {
     @GetMapping("/custom")
     public Mono<String> custom() {
         throw new CustomException();
+    }
+
+    @GetMapping("/dto-error")
+    public Mono<String> dtoError(@Valid @RequestBody RequestDto requestDto) {
+        return Mono.just("hello");
     }
 }
